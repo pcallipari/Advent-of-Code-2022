@@ -12,10 +12,16 @@ def is_subset_of(start1: int, end1: int, start2: int, end2: int) -> bool:
     return False
 
 
-def either_subset(start1: int, end1: int, start2: int, end2: int) -> bool:
+def overlap_atall(start1: int, end1: int, start2: int, end2: int) -> bool:
+    start_in = start2 >= start1 and start2 <= end1
+    end_in = end2 >= start1 and end2 <= end1
+    return start_in or end_in
+
+
+def either_overlap(start1: int, end1: int, start2: int, end2: int) -> bool:
     """Checks if either is a subset."""
-    a = is_subset_of(start1, end1, start2, end2)
-    b = is_subset_of(start2, end2, start1, end1)
+    a = overlap_atall(start1, end1, start2, end2)
+    b = overlap_atall(start2, end2, start1, end1)
     return a or b
 
 
@@ -37,25 +43,11 @@ def main():
         newline = f.readline()
         while newline != "":
             input_coords = get_int_values(newline)
-            if either_subset(*input_coords):
+            if either_overlap(*input_coords):
                 total_pairs += 1
             newline = f.readline()
 
-    #     input_coordinates = map(get_int_values, f.readlines())
-    # overlapped_sets = filter(lambda x: either_subset(*x), input_coordinates)
-    # total_overlapped = sum(1 for _ in overlapped_sets)
     print(f"The number of overlapping sets is {total_pairs}")
-
-
-# def main():
-#     with open(input_file, "r") as f:
-#         while True:
-#             for _ in range(10):
-#                 int_values = get_int_values(f.readline().strip("\n"))
-#                 print(
-#                     f"{int_values}, {either_subset(int_values[0], int_values[1], int_values[2], int_values[3])}"
-#                 )
-#             # input()
 
 
 if __name__ == "__main__":
