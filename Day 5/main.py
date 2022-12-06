@@ -37,7 +37,15 @@ def parse_moves(input: str) -> Tuple[int, int, int]:
 
 def move_blocks(quantity: int, start: int, end: int, columns):
     for _ in range(quantity):
-        columns[end - 1].append(columns[start - 1].pop())
+        columns[end].append(columns[start].pop())
+
+
+def stack_move_blocks(quantity: int, start: int, end: int, columns) -> None:
+    temp_stack = Deque()
+    for _ in range(quantity):
+        temp_stack.append(columns[start].pop())
+    for _ in range(quantity):
+        columns[end].append(temp_stack.pop())
 
 
 def get_message(columns):
@@ -51,7 +59,12 @@ def main_part1():
     # columns = initial_test_state()
     columns = my_initial_state()
     for move in move_iter:
-        move_blocks(quantity=move[0], start=move[1], end=move[2], columns=columns)
+        # move_blocks(
+        #     quantity=move[0], start=move[1] - 1, end=move[2] - 1, columns=columns
+        # )
+        stack_move_blocks(
+            quantity=move[0], start=move[1] - 1, end=move[2] - 1, columns=columns
+        )
     print(f"The message is: {get_message(columns)}")
 
 
