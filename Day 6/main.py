@@ -25,5 +25,21 @@ def main_part1():
             i += 1
 
 
+def main_part2():
+    with open(input_file, "r") as f:
+
+        temp_array = [*f.read(14)]
+        i = 15
+        while True:
+            next_character = f.read(1)
+            temp_array = temp_array[1:]
+            temp_array.append(next_character)
+            if check_doubles(temp_array):
+                print(f"The first message point is at i={i}.")
+                break
+
+            i += 1
+
+
 if __name__ == "__main__":
-    main_part1()
+    main_part2()
