@@ -16,10 +16,10 @@ def initial_test_state() -> List[Deque]:
 
 def my_initial_state() -> List[Deque]:
     columns = []
-    columns.append(deque(["T", "P", "Z", "C", "S", "L", "Q", "N"]))
-    columns.append(deque(["L", "P", "T", "V", "H", "C", "G"]))
-    columns.append(deque(["D", "C", "Z", "F"]))
-    columns.append(deque(["G", "W", "T", "D", "L", "M", "V", "C"]))
+    columns.append(deque("TPZCSLQN"))
+    columns.append(deque("LPTVHCG"))
+    columns.append(deque("DCZF"))
+    columns.append(deque("GWTDLMVC"))
     columns.append(deque("PWC"))
     columns.append(deque("PFJDCTSZ"))
     columns.append(deque("VWGBD"))
