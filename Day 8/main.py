@@ -58,5 +58,84 @@ def isVisibleBottom(i, j, input_array):
     return input_array[i][j] > maxValue
 
 
+# Part 2
+
+
+def getSightLeft(i, j, input_array):
+    sight_total = 0
+    for tree in reversed(input_array[i][:j]):
+        if tree < input_array[i][j]:
+            sight_total += 1
+        else:
+            sight_total += 1
+            break
+    # if sight_total == 0:
+    #     sight_total += 1
+    return sight_total
+
+
+def getSightRight(i, j, input_array):
+    sight_total = 0
+    for tree in input_array[i][j + 1 :]:
+        if tree < input_array[i][j]:
+            sight_total += 1
+        else:
+            sight_total += 1
+            break
+    # if sight_total == 0:
+    #     sight_total += 1
+    return sight_total
+
+
+def getSightUp(i, j, input_array):
+    up_list = [input_array[ix][j] for ix in range(i - 1, -1, -1)]
+    sight_total = 0
+    for tree in up_list:
+        if tree < input_array[i][j]:
+            sight_total += 1
+        else:
+            sight_total += 1
+            break
+    # if sight_total == 0:
+    #     sight_total += 1
+    return sight_total
+
+
+def getSightDown(i, j, input_array):
+    max_row = len(input_array)
+    down_list = [input_array[ix][j] for ix in range(i + 1, max_row)]
+    sight_total = 0
+    for tree in down_list:
+        if tree < input_array[i][j]:
+            sight_total += 1
+        else:
+            sight_total += 1
+            break
+    # if sight_total == 0:
+    #     sight_total += 1
+    return sight_total
+
+
+def main_part2():
+    input_array = [[*map(int, line.rstrip())] for line in open(input_file, "r")]
+
+    maxCols = len(input_array[0])
+    maxRows = len(input_array)
+
+    max_score = 0
+
+    for i in range(0, maxCols):
+        for j in range(0, maxRows):
+            left = getSightLeft(i, j, input_array)
+            right = getSightRight(i, j, input_array)
+            down = getSightDown(i, j, input_array)
+            up = getSightUp(i, j, input_array)
+            scen_score = left * right * down * up
+            if scen_score > max_score:
+                max_score = scen_score
+
+    print(f"The max score is: {max_score}.")
+
+
 if __name__ == "__main__":
-    main_part1()
+    main_part2()
